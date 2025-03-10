@@ -4,3 +4,8 @@ export type HeaderMenuTypes = {
   href: string;
   description: string;
 }
+
+export type mockUpTypes = {
+  title: string;
+  user_id: number;
+}

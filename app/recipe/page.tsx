@@ -1,8 +1,8 @@
+import RecipePage from "@/components/recipe/RecipePage";
+
 export const Recipe = () => {
   return (
-    <>
-      recipe page
-    </>
+    <RecipePage />
   )
 }
 
