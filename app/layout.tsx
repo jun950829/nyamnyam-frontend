@@ -5,6 +5,7 @@ import QueryClientProvider from "@/providers/QueryClientProvider";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Header from "@/components/layers/Header";
 import { Footer } from "@/components/layers/Footer";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
         >
+        <Script
+          strategy="beforeInteractive"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=51cac3f3abf2078dbb50ed93e69fb59f&libraries=services&autoload=false`}
+        ></Script>
           <QueryClientProvider>
             <ThemeProvider>
               <Header />
