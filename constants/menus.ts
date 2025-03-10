@@ -1,14 +1,14 @@
 export const HeaderMenu = [
   {
-    name: "메뉴 1",
-    href: "/",
+    name: "맛집 공유",
+    href: "/matzip",
   },
   {
-    name: "sample",
-    href: "/sample",
+    name: "맛집 찾기",
+    href: "/findmatzip",
   },
   {
-    name: "메뉴 3",
-    href: "/",
+    name: "레시피 공유",
+    href: "/recipe",
   }
 ]
