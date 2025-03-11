@@ -17,7 +17,7 @@ export default function RecipeContent() {
   }, [])
 
   const getLikes = async () => {
-    const response = await fetch("http://localhost:8080/api/like/1");
+    const response = await fetch("https://nyamnyam.laterre.dev/api/like/1");
     const data = await response.json();
 
     console.log(data);

@@ -32,7 +32,7 @@ const LoginForm = () => {
     const onSubmit = async (data: {member_real_id:string, password: string}) => {
       setLoading(true);
   
-      const response = await fetch('http://localhost:8080/api/member/login', {
+      const response = await fetch('https://nyamnyam.laterre.dev/api/member/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

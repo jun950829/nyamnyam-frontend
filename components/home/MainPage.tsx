@@ -7,14 +7,14 @@ import { HeaderMenu } from "@/constants/menus";
 export const MainPage = () => {
   useEffect(() => {
     
-    async function fetchData() {
-      const res = await fetch('http://localhost:8080/api/post/id/1')
-      const json = await res.json();
-      console.log(json);      
+    // async function fetchData() {
+    //   const res = await fetch('http://localhost:8080/api/post/id/1')
+    //   const json = await res.json();
+    //   console.log(json);      
       
-    }
+    // }
     
-    fetchData();
+    // fetchData();
   })
   
   return (
