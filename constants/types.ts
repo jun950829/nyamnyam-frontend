@@ -19,6 +19,7 @@ export type mockUpTypes = {
 }
 
 export type userTypes = {
+  id: number;
   nickname: string;
   role: string;
   member_real_id: string;

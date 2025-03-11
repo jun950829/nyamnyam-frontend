@@ -9,6 +9,7 @@ export default function MatZipWrite() {
   return (
     <div className="w-9/10 mt-10 mb-30">
       <PostForm topic="matzip" onSuccess={() => {
+
         alert('등록 완료!')
         router.push('matzip');
       }}/>

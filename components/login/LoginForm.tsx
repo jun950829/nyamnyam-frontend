@@ -48,6 +48,7 @@ const LoginForm = () => {
       setLoading(false);
     } else {
       setUser({
+        id: result.data.id,
         nickname: result.data.nickname,
         role: result.data.role,
         member_real_id: result.data.member_real_id
