@@ -1,6 +1,6 @@
 export type SignUpFormDataTypes = {
-  id: string;
-  displayName: string;
+  member_real_id: string;
+  nickname: string;
   email: string;
   password: string;
 }
@@ -16,4 +16,10 @@ export type HeaderMenuTypes = {
 export type mockUpTypes = {
   title: string;
   user_id: number;
+}
+
+export type userTypes = {
+  nickname: string;
+  role: string;
+  member_real_id: string;
 }

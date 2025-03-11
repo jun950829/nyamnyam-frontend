@@ -6,9 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "@/components/commons/inputs/Input";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
+import useLoginStore from "@/stores/useLoginStore";
 
 const schema = yup.object().shape({
-  id: yup
+  member_real_id: yup
     .string()
     .required("Id를 입력해주세요"),
   password: yup.string().required("Password를 입력해주세요")
@@ -17,7 +18,9 @@ const schema = yup.object().shape({
 const LoginForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  
+  const setUser = useLoginStore((state) => state.setUser);
+  const setAdmin = useLoginStore((state) => state.setAdmin);
+
   const {
     register,
     handleSubmit,
@@ -26,13 +29,39 @@ const LoginForm = () => {
     resolver: yupResolver(schema),
   });
 
-    const onSubmit = (data: {id:string, password: string}) => {
+    const onSubmit = async (data: {member_real_id:string, password: string}) => {
       setLoading(true);
   
-      // alert(`일단 됐다고 친다`);
+      const response = await fetch('http://localhost:8080/api/member/login', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      });
+  
+      const result = await response.json();
+      
+    // {result_code: '202', result_message: '이미 존재하는 유저 ID입니다.'}
+    if(result.result_code === "202") {
+      alert(result.result_message)
       setLoading(false);
-      console.log(data);
+    } else {
+      setUser({
+        nickname: result.data.nickname,
+        role: result.data.role,
+        member_real_id: result.data.member_real_id
+      })
+
+      if (result.data.role === "admin") {
+        setAdmin()
+      }
+
+
+      alert(result.result_message);
+      setLoading(false);
       router.push("/");
+    }
   
     };
 
@@ -43,7 +72,7 @@ const LoginForm = () => {
   return (
     <>
     <form onSubmit={handleSubmit(onSubmit)} className="p-4 max-w-md mx-auto space-y-4">
-      <Input label="아이디" {...register("id")} error={errors.id?.message} placeholder="아이디" />
+      <Input label="아이디" {...register("member_real_id")} error={errors.member_real_id?.message} placeholder="아이디" />
       <Input label="비밀번호" type="password" {...register("password")} error={errors.password?.message} placeholder="비밀번호" />
       <button type="submit" className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" disabled={loading}>
         {loading ? "로그인 중..." : "로그인"}

@@ -9,11 +9,11 @@ import { SignUpFormDataTypes } from "@/constants/types";
 import { useRouter } from "next/navigation";
 
 const schema = yup.object().shape({
-  id: yup
+  member_real_id : yup
     .string()
     .required("Id를 입력해주세요")
     .min(4, "Id는 4글자 이상이에요"),
-  displayName: yup
+  nickname : yup
     .string()
     .required("Id를 입력해주세요")
     .min(3, "닉네임은 3글자 이상이에요"),
@@ -37,22 +37,40 @@ const SignUpForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = (data: SignUpFormDataTypes) => {
+  const onSubmit = async (data: SignUpFormDataTypes) => {
     setLoading(true);
+    const postData = {
+      ...data,
+      role: "general"
+    }
 
-    // alert(`일단 됐다고 친다`);
-    setLoading(false);
-    console.log(data);
-    router.push("/");
+    const response = await fetch('http://localhost:8080/api/member', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData)
+    });
 
+    const result = await response.json();
+
+    // {result_code: '202', result_message: '이미 존재하는 유저 ID입니다.'}
+    if(result.result_code === "202") {
+      alert(result.result_message)
+      setLoading(false);
+    } else {
+      alert(result.result_message);
+      setLoading(false);
+      router.push("/login");
+    }
   };
 
   
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-4 max-w-md mx-auto space-y-4">
 
-      <Input label="아이디" {...register("id")} error={errors.id?.message} placeholder="아이디" />
-      <Input label="별명" {...register("displayName")} error={errors.displayName?.message} placeholder="닉네임" />
+      <Input label="아이디" {...register("member_real_id")} error={errors.member_real_id?.message} placeholder="아이디" />
+      <Input label="별명" {...register("nickname")} error={errors.nickname?.message} placeholder="닉네임" />
       <Input label="Email" type="email" {...register("email")} error={errors.email?.message} placeholder="Email" />
       <Input label="비밀번호" type="password" {...register("password")} error={errors.password?.message} placeholder="비밀번호" />
       <Input

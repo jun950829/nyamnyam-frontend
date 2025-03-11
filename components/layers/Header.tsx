@@ -1,11 +1,14 @@
 'use client';
 
 import { HeaderMenu } from "@/constants/menus";
+import useLoginStore from "@/stores/useLoginStore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export const Header = () => {
   const [scroll, setScroll] = useState(false);
+  const user = useLoginStore((state) => state.user);
+  const logout = useLoginStore((state) => state.logout);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,11 +43,20 @@ export const Header = () => {
               </Link>
               )
             })}
+            {user === null ?
             <Link href="/login">
-            <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-blue-600 transition">
-              로그인
+              <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-blue-600 transition">
+                로그인
+              </button> 
+            </Link>
+            : 
+            <button className="px-4 py-2 bg-black text-white rounded-lg hover:bg-blue-600 transition" onClick={() => {
+              logout();
+              alert('로그아웃!')
+            }}>
+              로그아웃
             </button> 
-          </Link>
+            }
           </div>
       </nav>
     </div>
