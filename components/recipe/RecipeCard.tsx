@@ -8,7 +8,7 @@ interface MockUpProps {
 export const RecipeCard = ({mock} : MockUpProps ) => {
 
 return (
-    <div className="flex flex-row items-center justify-center h-200">
+    <div className="flex flex-col items-center justify-center h-200">
       <div className="">
         이미지
       </div>
