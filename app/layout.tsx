@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen w-full pt-20`}
         >
         <Script
           strategy="beforeInteractive"
