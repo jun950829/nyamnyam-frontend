@@ -1,9 +1,7 @@
-export const MatZip = () => {
+export default function MatZip () {
   return (
     <>
       matzip page
     </>
   )
 }
-
-export default MatZip;

@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
-export const RecipeContent = () => {
+export default function RecipeContent() {
   const params = useParams();
   const { id } = params;
   const [likes, setLikes] = useState(0);
@@ -44,11 +44,6 @@ export const RecipeContent = () => {
     <>
       {likes}
       <Btn label="좋아요" onClick={addLikes} />
-
-
-
     </>
   )
 }
-
-export default RecipeContent

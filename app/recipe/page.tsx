@@ -1,9 +1,7 @@
 import RecipePage from "@/components/recipe/RecipePage";
 
-export const Recipe = () => {
+export default function Recipe() {
   return (
     <RecipePage />
   )
 }
-
-export default Recipe;

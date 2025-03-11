@@ -1,5 +1,4 @@
 import { mockUpTypes } from "@/constants/types"
-import { mock } from "node:test";
 
 interface MockUpProps {
     mock : mockUpTypes;

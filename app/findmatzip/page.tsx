@@ -16,7 +16,7 @@ type Place = {
   place_url: string;
 }
 
-export const FindMatZip = () => {
+export default function FindMatZip() {
   const inputRef = useRef<HTMLInputElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [places, setPlaces] = useState<any>([]);
@@ -75,5 +75,3 @@ export const FindMatZip = () => {
     </div>
   )
 }
-
-export default FindMatZip;

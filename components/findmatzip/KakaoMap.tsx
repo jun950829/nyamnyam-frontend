@@ -25,7 +25,6 @@ const KakaoMap = ({location} : KakaoMapProps) => {
                 level: 3,
             };
             
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             // 맵 생성
             const map = new kakao.maps.Map(container as HTMLElement, options);
             

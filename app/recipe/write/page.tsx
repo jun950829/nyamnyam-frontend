@@ -3,7 +3,7 @@
 import PostForm from "@/components/commons/forms/PostForm";
 import { useRouter } from "next/navigation";
 
-export const RecipeWrite = () => {
+export default function RecipeWrite() {
   const router = useRouter();
 
   return (
@@ -14,8 +14,4 @@ export const RecipeWrite = () => {
       }}/>
     </div>
   )
-
-
 }
-
-export default RecipeWrite;

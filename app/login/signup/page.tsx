@@ -1,6 +1,6 @@
 import SignUpForm from "@/components/login/SignUpForm";
 
-export const SingUp = () => {
+export default function SingUp () {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
       <div className="bg-white p-8 rounded-lg shadow-md w-100">
@@ -10,5 +10,3 @@ export const SingUp = () => {
     </div>
   );
 };
-
-export default SingUp;

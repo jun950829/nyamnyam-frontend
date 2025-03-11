@@ -3,7 +3,7 @@
 import PostForm from "@/components/commons/forms/PostForm";
 import { useRouter } from "next/navigation";
 
-export const MatZipWrite = () => {
+export default function MatZipWrite() {
   const router = useRouter();
 
   return (
@@ -14,8 +14,4 @@ export const MatZipWrite = () => {
       }}/>
     </div>
   )
-
-
 }
-
-export default MatZipWrite;
