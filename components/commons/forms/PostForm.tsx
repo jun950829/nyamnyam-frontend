@@ -103,7 +103,7 @@ export default function PostForm({ topic }: PostFromProps) {
       // reset();
       // if (onSuccess) onSuccess();
       alert("게시글이 성공적으로 업로드되었습니다!");
-      router.push("/matzip")
+      router.push(`/${topic}`)
     } catch (error) {
       alert("에러 발생: " + error);
     } finally {

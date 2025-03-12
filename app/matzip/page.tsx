@@ -6,6 +6,7 @@ import Btn from "@/components/commons/buttons/Btn";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 import Image from "next/image";
+import useLoginStore from "@/stores/useLoginStore";
 
 type PostType = {
   id:number
@@ -23,6 +24,8 @@ export default function MatZip () {
     const [matzipList, setMatzipList] = useState([]);
     // const { posts, lastElementRef } = useInfiniteScroll(`${process.env.NEXT_PUBLIC_API_URL}/api/post/page/1`);
     const [topPost, setTopPost] = useState<PostType>(null);
+    const isAdmin = useLoginStore((state) => state.isAdmin);
+
 
     useEffect(() => {
       async function fetchData() {
@@ -43,6 +46,16 @@ export default function MatZip () {
       getTopPost();
       fetchData();
     },[]);
+
+    const deletePost = async (id: number) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post/${id}`, {
+        method: "DELETE",
+      });
+
+      console.log()
+      alert('삭제하였습니다')
+      window.location.reload();
+    }
 
     return(
       <>
@@ -103,17 +116,21 @@ export default function MatZip () {
                   )}
                   <div className="mx-3">
                     <p className="text-xl font-bold mb-2">{posts.title}</p>
-                    <div className="flex flex-row justify-end items-center text-gray-500 text-sm mb-4">
-                      <p className="">by {posts.nickname}</p>
-                      <p>👍 {posts.likes}</p>
+                    <div className="flex flex-row justify-between items-center">
+                      {isAdmin && <Btn label="삭제" className="bg-red-400 h-10" onClick={() => {
+                          deletePost(posts.id);
+                        }} />
+                      }
+
+                      <div className="flex flex-row justify-end items-center text-gray-500 text-sm mb-4">
+                        <p className="">by {posts.nickname}</p>
+                        <p>👍 {posts.likes}</p>
+                      </div>
                     </div>
                   </div>
               </div>
               )
             })}
-
-            
-
           </div>
         </div>
       </>
