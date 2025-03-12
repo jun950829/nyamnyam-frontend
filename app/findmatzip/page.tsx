@@ -53,7 +53,7 @@ export default function FindMatZip() {
       getPostData(inputRef.current.value);
   }
 
-  const getPostData = async(shopName: string) => {
+  const getPostData = async (shopName: string) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post/shop/${shopName}`)
     const data = await response.json();
 
