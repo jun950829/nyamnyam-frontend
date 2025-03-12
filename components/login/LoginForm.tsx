@@ -47,6 +47,11 @@ const LoginForm = () => {
       alert(result.result_message)
       setLoading(false);
     } else {
+      setLoading(false);
+      if (result.data.role === "admin") {
+        setAdmin()
+      }
+
       setUser({
         id: result.data.id,
         nickname: result.data.nickname,
@@ -54,11 +59,7 @@ const LoginForm = () => {
         member_real_id: result.data.member_real_id
       })
 
-      if (result.data.role === "admin") {
-        setAdmin()
-      }
 
-      setLoading(false);
       router.push("/");
     }
   
