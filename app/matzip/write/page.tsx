@@ -11,7 +11,7 @@ export default function MatZipWrite() {
       <PostForm topic="matzip" onSuccess={() => {
 
         alert('등록 완료!')
-        router.push('matzip');
+        router.push('/matzip');
       }}/>
     </div>
   )

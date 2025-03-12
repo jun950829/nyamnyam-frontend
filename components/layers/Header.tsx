@@ -29,7 +29,9 @@ export const Header = () => {
       }`}
     >
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800">My Website</h1>
+        <Link href="/">
+        <h1 className="text-xl font-bold text-gray-800">😋 NyamNyam</h1>
+        </Link>
         <nav>
           <div className="flex items-center space-x-4">
           {HeaderMenu.map((menu) => {

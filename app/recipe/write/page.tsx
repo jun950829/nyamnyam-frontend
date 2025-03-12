@@ -9,8 +9,9 @@ export default function RecipeWrite() {
   return (
     <div className="w-9/10 mt-10 mb-30">
       <PostForm topic="recipe" onSuccess={() => {
+
         alert('등록 완료!')
-        router.push('recipe');
+        router.push('/recipe');
       }}/>
     </div>
   )
