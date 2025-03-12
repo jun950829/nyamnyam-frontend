@@ -43,7 +43,7 @@ interface PostFromProps {
   topic: string;
 }
 
-export default function PostForm({ topic, onSuccess }: PostFromProps) {
+export default function PostForm({ topic }: PostFromProps) {
   const router = useRouter();
   const user = useLoginStore((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +58,7 @@ export default function PostForm({ topic, onSuccess }: PostFromProps) {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+    // reset,
   } = useForm<PostFormData>(
     topic === "matzip" ?
     {
@@ -103,6 +103,7 @@ export default function PostForm({ topic, onSuccess }: PostFromProps) {
       // reset();
       // if (onSuccess) onSuccess();
       alert("게시글가 성공적으로 업로드되었습니다!");
+      router.push("matzip")
     } catch (error) {
       alert("에러 발생: " + error);
     } finally {

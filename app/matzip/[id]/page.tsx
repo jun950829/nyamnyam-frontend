@@ -4,6 +4,7 @@ import Btn from "@/components/commons/buttons/Btn";
 import useLoginStore from "@/stores/useLoginStore";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type PostType = {
   title: string;
@@ -75,11 +76,18 @@ export default function MatzipContent() {
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 mb-8">
         {/* 이미지 섹션 */}
         <div className="w-full">
-          <img
+        <Image
+          src={`data:image/png;base64,${post.media_data}`} // Base64 encoded image
+          alt="게시글 이미지"
+          width={384} // w-96 in Tailwind (384px)
+          height={0} // Auto height to maintain aspect ratio
+          className="mt-4 object-cover mx-auto"
+        />
+          {/* <img
               src={`data:image/png;base64,${post.media_data}`}
               alt="게시글 이미지"
               className="mt-4 w-96 h-auto object-cover mx-auto"
-            />
+            /> */}
         </div>
         {/* 본문 내용 */}
         <div className="p-6 ">

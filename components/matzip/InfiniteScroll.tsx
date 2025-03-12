@@ -30,7 +30,7 @@ export default function useInfiniteScroll(apiUrl: string, pageSize = 2) {
 
   useEffect(() => {
     fetchData(); // 초기 데이터 로드
-  }, []);
+  });
 
   // 마지막 요소 감지하여 추가 데이터 불러오기
   const lastElementRef = useRef<HTMLDivElement | null>(null);
@@ -48,6 +48,7 @@ export default function useInfiniteScroll(apiUrl: string, pageSize = 2) {
 
     observer.current.observe(lastElementRef.current);
     return () => observer.current?.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastElementRef, hasMore]);
 
   return { posts, lastElementRef };

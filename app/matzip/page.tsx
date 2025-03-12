@@ -5,6 +5,7 @@ import Btn from "@/components/commons/buttons/Btn";
 import useInfiniteScroll from "@/components/matzip/InfiniteScroll";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
+import Image from "next/image";
 
 type PostType = {
   title: string
@@ -49,11 +50,13 @@ export default function MatZip () {
               <p className="text-4xl text-bold py-4">오늘의 맛집 Top1 !!</p>
               {topPost && <div className="flex flex-row justify-between">
                 <div>
-                  <img
-                      src={`data:image/png;base64,${topPost.media_data}`}
-                      alt="게시글 이미지"
-                      className="w-60 h-48 object-cover"
-                    />
+                <Image
+                  src={`data:image/png;base64,${topPost.media_data}`} // Base64 이미지
+                  alt="게시글 이미지"
+                  width={240} // w-60 (Tailwind width equivalent)
+                  height={192} // h-48 (Tailwind height equivalent)
+                  className="object-cover"
+                />
                 </div>
                 <div>
                 <div className="flex flex-row justify-between">
@@ -86,11 +89,13 @@ export default function MatZip () {
                   router.push(`/matzip/${posts.id}`);
                 }} ref={index === posts.length - 1 ? lastElementRef : null}>
                   {posts.media_data ? (
-                  <img
-                    src={`data:image/png;base64,${posts.media_data}`}
-                    alt="게시글 이미지"
-                    className="w-full h-48 object-cover"
-                  />
+                  <Image
+                  src={`data:image/png;base64,${posts.media_data}`} // Base64 image
+                  alt="게시글 이미지"
+                  width={240} // You can adjust this (default width)
+                  height={192} // h-48 (192px)
+                  className="w-full object-cover"
+                />
                   ) : (
                     <p className="mt-4 text-gray-500">이미지가 없습니다.</p>
                   )}
