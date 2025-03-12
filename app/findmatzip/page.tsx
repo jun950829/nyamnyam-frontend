@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use client';
 
+import { useRouter } from "next/navigation";
 import KakaoMap from "@/components/findmatzip/KakaoMap";
 import "react-kakao-maps-sdk";
 import { useRef, useState } from "react";
 import Btn from "@/components/commons/buttons/Btn";
 import { searchKaKaoPlace } from "@/libs/apis/kakaomapapi";
 import { SearchResultsCard } from "@/components/findmatzip/SearchResultCard";
+import Image from "next/image";
 
 type Place = {
   id: string;
@@ -17,10 +21,12 @@ type Place = {
 }
 
 export default function FindMatZip() {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [places, setPlaces] = useState<any>([]);
   const [selected, setSelected] = useState(0);
+  const [posts, setPosts] = useState([]);
 
   const findWithClick = (searchText?: string) => {
     if(!searchText) {
@@ -32,6 +38,7 @@ export default function FindMatZip() {
     if(inputRef.current) {
       inputRef.current.value = searchText;
     }
+    getPostData(searchText);
     setSelected(0);
   }
 
@@ -43,6 +50,14 @@ export default function FindMatZip() {
 
       console.log('검색으로 ', inputRef.current.value)
       searchKaKaoPlace(inputRef.current.value, setPlaces);
+      getPostData(inputRef.current.value);
+  }
+
+  const getPostData = async(shopName: string) => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post/shop/${shopName}`)
+    const data = await response.json();
+
+    setPosts(data);
   }
 
   return (
@@ -72,6 +87,43 @@ export default function FindMatZip() {
         </div>
 
       </div>
+      <div className="flex flex-row justify-between items-center mt-4 border-b-1 mb-4 pb-4">
+            <p className="text-2xl text-bold">검색과 관련된 Post!</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-4">
+      
+        { posts.length !== 0 ? posts.map((posts: any, index) => {
+            return (
+              
+                <div key={index} className="w-full max-w-sm shadow-lg rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow" onClick={() => {
+                  router.push(`/matzip/${posts.id}`);
+                }}>
+                  {posts.media_data ? (
+                  <Image
+                  src={`data:image/png;base64,${posts.media_data}`} // Base64 image
+                  alt="게시글 이미지"
+                  width={240} // You can adjust this (default width)
+                  height={192} // h-48 (192px)
+                  className="w-full object-cover"
+                />
+                  ) : (
+                    <p className="mt-4 text-gray-500">이미지가 없습니다.</p>
+                  )}
+                  <div className="mx-3">
+                    <p className="text-xl font-bold mb-2">{posts.title}</p>
+                    <div className="flex flex-row justify-end items-center text-gray-500 text-sm mb-4">
+                      <p className="">by {posts.nickname}</p>
+                      <p>👍 {posts.likes}</p>
+                    </div>
+                  </div>
+              </div>
+              )
+            })
+          
+            : <p>검색어를 입력하거나 관련 포스트가 없어요...</p>
+          
+          }
+        </div>
     </div>
   )
 }
