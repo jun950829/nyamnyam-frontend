@@ -58,8 +58,6 @@ const LoginForm = () => {
         setAdmin()
       }
 
-
-      alert(result.result_message);
       setLoading(false);
       router.push("/");
     }

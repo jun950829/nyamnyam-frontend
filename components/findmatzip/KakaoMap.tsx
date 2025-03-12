@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-kakao-maps-sdk";
 
 type Location = {
@@ -13,9 +13,12 @@ interface KakaoMapProps {
 }
 
 const KakaoMap = ({location} : KakaoMapProps) => {
+    const [mounted, setMounted] = useState(false);
 
     useEffect(()=>{
     	// 1. 카카오 지도 초기화
+        if(kakao === undefined)
+            return ;
         kakao?.maps.load(() => {
         	// 2. 지도 생성 및 설정
             const container = document.getElementById("map");
@@ -37,7 +40,11 @@ const KakaoMap = ({location} : KakaoMapProps) => {
             marker.setMap(map); 
 
         });
-    });
+    }, [location, mounted]);
+
+    useEffect(() => {
+        setMounted(true);
+    }, [])
 
     return (
         <>

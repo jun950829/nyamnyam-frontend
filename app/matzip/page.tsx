@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image";
 
 type PostType = {
+  id:number
   title: string
   media_data: string
   nickname: string
@@ -73,6 +74,7 @@ export default function MatZip () {
                     <p>좋아요 👍 {topPost.likes} </p>
                     <p className="">by {topPost.nickname}</p>
                   </div>
+                  <Btn label="보러가기" onClick={() => {router.push(`/matzip/${topPost.id}`)}} className="w-full mx-auto mt-6"/>
                 </div>
                 
               </div>}
