@@ -20,7 +20,7 @@ type PostType = {
 export default function MatZip () {
     const router = useRouter();
     // const [matzipList, setMatzipList] = useState([]);
-    const { posts, lastElementRef } = useInfiniteScroll(`${process.env.NEXT_PUBLIC_API_URL}/api/post/1`);
+    const { posts, lastElementRef } = useInfiniteScroll(`${process.env.NEXT_PUBLIC_API_URL}/api/post/page/1`);
     const [topPost, setTopPost] = useState<PostType>(null);
 
     useEffect(() => {
