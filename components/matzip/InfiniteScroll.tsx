@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, useRef } from "react";
 
-export default function useInfiniteScroll(apiUrl: string, pageSize = 4) {
+export default function useInfiniteScroll(apiUrl: string, pageSize = 1) {
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);

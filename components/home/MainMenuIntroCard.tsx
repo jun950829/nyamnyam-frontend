@@ -19,7 +19,7 @@ export const MainMenuIntroCard = ({menu, index} : HeaderMenuProps ) => {
 
   if( index % 2 == 0) {
     return (
-      <div className="flex flex-row w-6/10 items-center justify-center gap-y-1">
+      <div className="flex flex-row w-1/3 min-w-180 items-center justify-center gap-y-1">
         <div className="flex flex-col justify-center gap-y-2 w-1/2">
           <p className="text-4xl text-bold">{menu.name}</p>
           <p className="text-l text-bold text-gray-400">{menu.description}</p>
@@ -40,7 +40,7 @@ export const MainMenuIntroCard = ({menu, index} : HeaderMenuProps ) => {
     )
   } else {
     return (
-      <div className="flex flex-row w-6/10 items-center justify-center gap-y-1">
+      <div className="flex flex-row  w-1/3 min-w-180 items-center justify-center gap-y-1">
         <div className="relative w-1/2 h-full flex justify-start items-center">
           <Image
             src={menu.image}
