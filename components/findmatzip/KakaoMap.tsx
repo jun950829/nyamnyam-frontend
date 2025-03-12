@@ -16,7 +16,7 @@ const KakaoMap = ({location} : KakaoMapProps) => {
 
     useEffect(()=>{
     	// 1. 카카오 지도 초기화
-        kakao.maps.load(() => {
+        kakao?.maps.load(() => {
         	// 2. 지도 생성 및 설정
             const container = document.getElementById("map");
 

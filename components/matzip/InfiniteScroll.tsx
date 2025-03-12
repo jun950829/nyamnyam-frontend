@@ -20,8 +20,12 @@ export default function useInfiniteScroll(apiUrl: string, pageSize = 2) {
       if (data.length === 0) {
         setHasMore(false); // 더 이상 데이터가 없으면 로딩 중단
       } else {
-        setPosts((prev) => [...prev, ...data]);
-        setPage((prev) => prev + 1);
+        if(data.status !== undefined && data.status==500) {}
+        else {
+
+          setPosts((prev) => [...prev, ...data]);
+          setPage((prev) => prev + 1);
+        }
       }
     } catch (error) {
       setPosts([]);
