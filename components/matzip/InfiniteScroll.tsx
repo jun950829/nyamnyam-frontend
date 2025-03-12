@@ -24,6 +24,7 @@ export default function useInfiniteScroll(apiUrl: string, pageSize = 2) {
         setPage((prev) => prev + 1);
       }
     } catch (error) {
+      setPosts([]);
       console.error("데이터 로드 오류:", error);
     }
   };
