@@ -2,54 +2,112 @@
 'use client';
 
 import Btn from "@/components/commons/buttons/Btn";
+import useInfiniteScroll from "@/components/matzip/InfiniteScroll";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
+type PostType = {
+  title: string
+  media_data: string
+  nickname: string
+  likes: number
+  address: string
+  shop_name: string;
+  content: string
+} | null;
+
 export default function MatZip () {
     const router = useRouter();
-    const [matzipList, setMatzipList] = useState([]);
+    // const [matzipList, setMatzipList] = useState([]);
+    const { posts, lastElementRef } = useInfiniteScroll(`${process.env.NEXT_PUBLIC_API_URL}/api/post/1`);
+    const [topPost, setTopPost] = useState<PostType>(null);
 
     useEffect(() => {
       async function fetchData() {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post/1`)
         const json = await res.json();
 
-        setMatzipList(json)
-        
         console.log('데이터 불러오기', json)
       }
+
+      async function getTopPost() {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/post/1/topone`)
+        const json = await res.json();
+
+        setTopPost(json);
+        console.log('top post 불러오기', json)
+      }
+
+      getTopPost();
       fetchData();
     },[]);
 
     return(
       <>
-        <div className="w-8/10 p-4 min-h-600 mx-auto">
-          <div className="flex flex-row justify-between items-center mt-4">
+        <div className="w-8/10 p-4 min-h-100 mx-auto">
+          <div className="w-full min-h-25 mx-auto max-w-150">
+              <p className="text-4xl text-bold py-4">오늘의 맛집 Top1 !!</p>
+              {topPost && <div className="flex flex-row justify-between">
+                <div>
+                  <img
+                      src={`data:image/png;base64,${topPost.media_data}`}
+                      alt="게시글 이미지"
+                      className="w-60 h-48 object-cover"
+                    />
+                </div>
+                <div>
+                <div className="flex flex-row justify-between">
+                  <p></p>
+                </div>
+
+                  <p className="text-2xl font-bold mb-2">{topPost.title}</p>
+                  <p className="text-xl mb-2 text-gray-700 text-sm line-clamp-2">{topPost.shop_name}</p>
+                  <p className="text-l mb-2 text-gray-700 text-sm line-clamp-2">{topPost.content}</p>
+                  <div className="flex flex-row justify-end items-center text-gray-500 text-sm mb-4">
+                    <span>주소: {topPost.address}</span>
+                  </div>
+                  <div className="flex flex-row justify-between  items-center text-gray-500 text-sm">
+                    <p>좋아요 👍 {topPost.likes} </p>
+                    <p className="">by {topPost.nickname}</p>
+                  </div>
+                </div>
+                
+              </div>}
+              
+          </div>
+          <div className="flex flex-row justify-between items-center mt-4 border-b-1 mb-4 pb-4">
             <p className="text-2xl text-bold">맛집 공유 POST</p> <Btn label="글쓰기" onClick={() => router.push("matzip/write")} />
           </div>
-          {matzipList.map((posts: any, index) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {posts.map((posts: any, index) => {
             return (
-              <div key={index} className="w-full max-w-sm shadow-lg rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow"onClick={() => {
-                router.push(`/matzip/${posts.id}`);
-              }}>
-              {posts.media_data ? (
-              <img
-                src={`data:image/png;base64,${posts.media_data}`}
-                alt="게시글 이미지"
-                className="w-full h-48 object-cover"
-              />
-              ) : (
-                <p className="mt-4 text-gray-500">이미지가 없습니다.</p>
-              )}
+              
+                <div key={index} className="w-full max-w-sm shadow-lg rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow" onClick={() => {
+                  router.push(`/matzip/${posts.id}`);
+                }} ref={index === posts.length - 1 ? lastElementRef : null}>
+                  {posts.media_data ? (
+                  <img
+                    src={`data:image/png;base64,${posts.media_data}`}
+                    alt="게시글 이미지"
+                    className="w-full h-48 object-cover"
+                  />
+                  ) : (
+                    <p className="mt-4 text-gray-500">이미지가 없습니다.</p>
+                  )}
+                  <div className="mx-3">
+                    <p className="text-xl font-bold mb-2">{posts.title}</p>
+                    <div className="flex flex-row justify-end items-center text-gray-500 text-sm mb-4">
+                      <p className="">by {posts.nickname}</p>
+                      <p>👍 {posts.likes}</p>
+                    </div>
+                  </div>
+              </div>
+              )
+            })}
 
-              <p className="text-xl font-bold mb-2">{posts.title}</p>
-              <div className="flex items-center text-gray-500 text-sm mb-4">
-                <span className="mr-4">by {posts.nickname}</span>
-                <span>👍 {posts.likes}</span>
-              </div>
-              </div>
-            )
-          })}
+            
+
+          </div>
         </div>
       </>
     )

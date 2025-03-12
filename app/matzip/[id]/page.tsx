@@ -74,29 +74,31 @@ export default function MatzipContent() {
       
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 mb-8">
         {/* 이미지 섹션 */}
-        <img
+        <div className="w-full">
+          <img
               src={`data:image/png;base64,${post.media_data}`}
               alt="게시글 이미지"
-              className="mt-4 w-96 h-auto object-cover"
+              className="mt-4 w-96 h-auto object-cover mx-auto"
             />
-
+        </div>
         {/* 본문 내용 */}
-        <div className="p-6">
-          <h1 className="text-2xl font-bold text-gray-900">{post.title}</h1>
-      {likes}
-      <p className="text-sm text-gray-500 mt-1">by {post.nickname} | 좋아요 : {likes}</p>
+        <div className="p-6 ">
+          <h1 className="text-2xl font-bold text-gray-900 text-right">{post.title}</h1>
+        <p className="text-sm text-gray-500 mt-1 text-right">by {post.nickname} | 좋아요 : {likes}</p>
 
           {/* 가게 정보 */}
-          <div className="mt-4 bg-gray-100 p-4 rounded-lg">
+          <div className="flex flex-row justify-between mt-4 bg-gray-100 p-4 rounded-lg">
+            <div>
             <p>가게 정보</p>
             <p className="text-lg font-semibold text-gray-700">{post.shop_name}</p>
             <p className="text-sm text-gray-600">{post.address}</p>
+            </div>
+          <Btn label="좋아요" onClick={addLikes} />
+
           </div>
 
           {/* 본문 내용 */}
           <p className="mt-4 text-gray-700">{post.content}</p>
-
-          <Btn label="좋아요" onClick={addLikes} />
         </div>
       </div>
       }
