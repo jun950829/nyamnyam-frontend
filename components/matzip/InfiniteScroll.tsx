@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, useRef } from "react";
 
-export default function useInfiniteScroll(apiUrl: string, pageSize = 2) {
+export default function useInfiniteScroll(apiUrl: string, pageSize = 4) {
   const [posts, setPosts] = useState<any[]>([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
@@ -15,7 +15,7 @@ export default function useInfiniteScroll(apiUrl: string, pageSize = 2) {
       const response = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`);
       const data = await response.json();
 
-      console.log('infinite:',  data);
+      console.log('infinite:', page, data);
 
       if (data.length === 0) {
         setHasMore(false); // 더 이상 데이터가 없으면 로딩 중단
