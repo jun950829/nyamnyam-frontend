@@ -53,8 +53,8 @@ export default function MatzipContent() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: user ? user.id : "",
-        postId: id,
+        member_id: user ? user.id : "",
+        post_id: id,
       }),
     });
   
